@@ -4,3 +4,5 @@ This repository contains my notes, code snippets, and insights gained while expl
 
 ---
 **Maximum_Number_CTAs_per_SM.md**: provides an overview of the limiting factors that prevent a high number of active concurrent CTAs on an SM, and explains why GPU occupancy might be low.
+
+**L1_cache_demystifying.md**: Elaborates the dynamics and interplay between shared memory and L1 cache capacity in GPU architecture. 
