@@ -19,7 +19,7 @@ The **maximum number of CTAs** that can be active on a single SM is determined b
 - **Warp size**
 - Hardware cap on **max CTAs per SM**
 
-In **Accel-Sim**, this calculation is handled by the function:
+In **Accel-Sim**, this calculation is handled by the folloeing function in cuda.sim.cc file:
 
 ```cpp
 max_cta(const struct gpgpu_ptx_sim_info *kernel_info,
