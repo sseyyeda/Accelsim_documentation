@@ -1,6 +1,6 @@
-# GPGPU-Sim Insights and Exploration
+# Accel-Sim Insights and Exploration
 
-This repository contains my notes, code snippets, and insights gained while exploring the internals of [GPGPU-Sim](https://github.com/gpgpu-sim/gpgpu-sim_distribution), a cycle-level simulator for modern GPU architectures. The goal is to deepen understanding of GPU microarchitecture behavior, simulation flow, and performance modeling.
+This repository contains my notes, code snippets, and insights gained while exploring the internals of [Accel-Sim](https://github.com/accel-sim/accel-sim-framework), a detailed simulator for modern GPU architectures. The goal is to deepen understanding of GPU microarchitecture behavior, simulation flow, and performance modeling.
 
 ---
 
@@ -19,7 +19,7 @@ The **maximum number of CTAs** that can be active on a single SM is determined b
 - **Warp size**
 - Hardware cap on **max CTAs per SM**
 
-In **GPGPU-Sim**, this calculation is handled by the function:
+In **Accel-Sim**, this calculation is handled by the function:
 
 ```cpp
 max_cta(const struct gpgpu_ptx_sim_info *kernel_info,
