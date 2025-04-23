@@ -23,48 +23,38 @@ The **maximum number of CTAs** that can be active on a single SM is determined b
 
 Let’s say we have the following configuration for a GPU SM:
 
-- **Threads per CTA**: `128`
-- **Warp size**: `32`
-- **Max threads per SM**: `2048`
-- **Shared memory per SM**: `48 KB`
-- **Registers per SM**: `65536`
-- **Registers per thread**: `32`
-- **Shared memory per CTA**: `12 KB`
-- **Max CTAs per SM (hardware cap)**: `8`
+- Threads per CTA: 128  
+- Warp size: 32  
+- Max threads per SM: 2048  
+- Shared memory per SM: 48 KB  
+- Registers per SM: 65536  
+- Registers per thread: 32  
+- Shared memory per CTA: 12 KB  
+- Max CTAs per SM (hardware cap): 8
 
 ### Step-by-step Constraints
 
-#### 1. Threads Constraint
-\[
-\frac{2048 \text{ threads}}{128 \text{ threads/CTA}} = 16 \text{ CTAs}
-\]
+1. **Threads Constraint**  
+   Max CTAs = 2048 / 128 = 16
 
-#### 2. Shared Memory Constraint
-\[
-\frac{48 \text{ KB}}{12 \text{ KB per CTA}} = 4 \text{ CTAs}
-\]
+2. **Shared Memory Constraint**  
+   Max CTAs = 48 KB / 12 KB = 4
 
-#### 3. Register File Constraint
-\[
-\text{Registers per CTA} = 128 \times 32 = 4096 \\
-\frac{65536 \text{ registers}}{4096 \text{ per CTA}} = 16 \text{ CTAs}
-\]
+3. **Register File Constraint**  
+   Registers needed per CTA = 128 * 32 = 4096  
+   Max CTAs = 65536 / 4096 = 16
 
-#### 4. Hardware CTA Cap
-\[
-\text{Max CTAs per SM} = 8
-\]
+4. **Hardware CTA Cap**  
+   Max CTAs = 8
 
 ### ✅ Final Result
-The final number of CTAs that can run concurrently on an SM is limited by the **most restrictive constraint**:
 
-\[
-\text{min}(16, 4, 16, 8) = \boxed{4 \text{ CTAs}}
-\]
+The final number of CTAs that can run concurrently on an SM is the minimum of all constraints:  
+min(16, 4, 16, 8) = **4 CTAs**
 
 ### 🧠 Takeaway
-In this example, **shared memory** is the bottleneck that limits the number of concurrent CTAs per SM to just 4. Understanding this helps optimize kernel resource usage to improve occupancy and performance.
 
+In this example, shared memory is the bottleneck that limits the number of concurrent CTAs per SM to just 4. Understanding this helps optimize resource usage for better occupancy and kernel performance.
 
 In **Accel-Sim**, this calculation is handled by the folloeing function in shader.cc file:
 
