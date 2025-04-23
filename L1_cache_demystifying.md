@@ -33,6 +33,7 @@ According to the above configuration, to understand the dynamics of the L1 archi
 
 By default, total cache size is: ``` 8 sets * 128 bytes/line * 128 ways = 131072 bytes = 128 KB```
 ![myimage](data/L1_cache.png)
+
 Now, here is a very tricky part: When the demand of shared memory is greater than 0KB, the code dynamically alters the **associativity** of the L1 cache.
 ```C
 if (adaptive_cache_config && !k.cache_config_set) {      // checks if the unified L1 is adaptive or not
