@@ -79,14 +79,12 @@ A higher number allows **more concurrent L1 accesses**, which can help reduce ba
 4. **`-gpgpu_shmem_num_banks` sets the number of shared memory banks.**  
 This config option is **not present by default** in the `.config` file, but **you can manually add it**.  
 If it is not set, the **default value is 16 banks**. Adjusting this may help reduce **shared memory bank conflicts**, especially for memory-intensive workloads.
-5- The simulation flag `-gpgpu_shmem_size` **must always be equal to or greater than** the amount of shared memory used by the kernel.
 
-### ❗ Why This Matters
-
+5- **The simulation flag `-gpgpu_shmem_size` **must always be equal to or greater than** the amount of shared memory used by the kernel.**
 If the specified shared memory size is **less than** what the kernel requires, **no CTA (Cooperative Thread Array)** can be scheduled on any SM (Streaming Multiprocessor). This will cause the simulator to hang or terminate with the following error:
 GPGPU-Sim uArch: ERROR ** Kernel requires more resources than shader has.
 
-### ✅ Recommended Action
+Recommended Action:
 
 Ensure that the value for `-gpgpu_shmem_size` meets or exceeds the shared memory declared or required by the CUDA kernel.
 
