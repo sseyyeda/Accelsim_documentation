@@ -60,3 +60,22 @@ As a result, if a kernel requires 64KB of shared memory, the above code changes 
 
 3) gpgpu_l1_banks: To be honest, I don't lke the name of this parameter. It's misleading and/or confusing. Actually this parameter denotes the number of cached lines that can be fetechd from L1 in a single cycle. By default it's 4. And since or L1 cache is sector based and L1 data port width is 32,
    then, in one cycle, at most ```4 * 32B = 128B``` can be fetched.
+
+### 💡 Some Extra Hints
+
+1. **Shared memory options should stay below the unified L1D size.**  
+   For example, if `-gpgpu_unified_l1d_size` is set to `128` (KB), then a valid option would be:
+   -gpgpu_shmem_option 0,8,16,32,64,100
+   This means the **maximum shared memory is 100 KB**, leaving **28 KB** for L1 cache. The **actual amount** of shared memory used will be determined **at runtime**.
+
+2. **`-gpgpu_shmem_size` should be a power of two (in bytes)** and must align with values used in `-gpgpu_shmem_option`.  
+For example:  
+-gpgpu_shmem_size 32768 # 32 KB
+At runtime, based on this size and resource availability, the simulator determines **how much shared memory can be scheduled** on an SM.  
+For more details, refer to [`Maximum_Number_CTAs_per_SM.md`](./Maximum_Number_CTAs_per_SM.md).
+
+3. **`-gpgpu_l1_banks` defines the number of banks (i.e., concurrent access channels) for L1 cache.**  
+A higher number allows **more concurrent L1 accesses**, which can help reduce bank conflicts and improve performance — but it's also subject to architectural design constraints.
+
+
+
