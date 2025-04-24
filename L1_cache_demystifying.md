@@ -76,6 +76,7 @@ For more details, refer to [`Maximum_Number_CTAs_per_SM.md`](./Maximum_Number_CT
 
 3. **`-gpgpu_l1_banks` defines the number of banks (i.e., concurrent access channels) for L1 cache.**  
 A higher number allows **more concurrent L1 accesses**, which can help reduce bank conflicts and improve performance — but it's also subject to architectural design constraints.
-
-
+4. **`-gpgpu_shmem_num_banks` sets the number of shared memory banks.**  
+This config option is **not present by default** in the `.config` file, but **you can manually add it**.  
+If it is not set, the **default value is 16 banks**. Adjusting this may help reduce **shared memory bank conflicts**, especially for memory-intensive workloads.
 
