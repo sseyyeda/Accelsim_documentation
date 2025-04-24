@@ -7,4 +7,4 @@ This repository contains my notes, code snippets, and insights gained while expl
 
 **L1_sharedmem_cache_demystifying.md**: Elaborates the dynamics and interplay between shared memory and L1 cache capacity in GPU architecture. 
 
-Understanding Shared Memory and Unified SRAM Partitioning in Modern GPUs
+**Unified_SRAM_Partitioning_l1_sharedmem.md** :Understanding Shared Memory and Unified SRAM Partitioning in Modern GPUs
