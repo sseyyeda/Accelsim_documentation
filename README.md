@@ -8,3 +8,4 @@ This repository contains my notes, code snippets, and insights gained while expl
 **L1_sharedmem_cache_demystifying.md**: Elaborates the dynamics and interplay between shared memory and L1 cache capacity in GPU architecture. 
 
 **Unified_SRAM_Partitioning_l1_sharedmem.md** :Understanding Shared Memory and Unified SRAM Partitioning in Modern GPUs
+**Bugs_Found_in_accelsim.md** :In this file, we document the possible bugs found in Accel-Sim.
