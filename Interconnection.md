@@ -47,4 +47,10 @@ While routing types define the fundamental behavior of packet movement in a Netw
 
 ![myimage](data/RC.png)
 
-3. VC Allocation (VA): 
+3. VC Allocation (VA): At a high level, the Virtual Channel Allocation (VA) stage decides which Virtual Channel (VC) an incoming packet or flit will use at the output port of the router. This solves critical problems like deadlock avoidance, head-of-line (HoL) blocking reduction, and better link utilization.
+The VA stage is crucial because only one flit can physically leave through an output port per cycle, but many flits may want to — each on different virtual channels. Thus, the VA stage handles the contention among multiple packets/flits competing for VCs at a given output port.
+When a head flit reaches the router, It already knows the desired output port from the Route Compute (RC) stage. The router checks which VCs are available on that output port. If multiple packets request VCs at the same time, the router performs arbitration to choose one winner per VC.
+The flit is assigned a VC at the output, allowing it to compete later in Switch Allocation (SA). Non-head flits automatically inherit the VC allocated to the head flit — they don't redo VA. Depending on router design, VC Allocation can follow different strategies such as
+First-Come, First-Served (FCFS), Round-Robin Arbitration, Priority-Based Arbitration and Oldest-First Arbitration
+
+4. Switch Allocation (SA): This is where real competition happens — packets are ready to move, and now it’s a matter of who wins access to the switch fabric. Once a flit has been buffered (Buffer Write), routed (Route Compute), and granted a virtual channel (VC Allocation), it needs to physically move from its input port to its assigned output port — through the router’s crossbar switch. But here's the challenge: Multiple flits from different input ports may all want to go to the same output port at the same time. The Switch Allocation stage (SA) performs arbitration among these competing flits and determines who gets to use the switch crossbar for the next clock cycle. Arbitration is at the heart of SA. Common strategies include Round-Robin Arbitration, Priority-Based Arbitration, Age-Based Arbitration, Criticality-Aware Arbitration. These arbitration policies are typically implemented in parallel for all output ports to maintain single-cycle operation.    
